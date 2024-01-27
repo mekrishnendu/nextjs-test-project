@@ -71,13 +71,19 @@ p{
   padding: 5px;
   ul{
     margin: 0;
-    padding: 0;
+    padding: 0 0;
     li{
       list-style: none;
       display: inline-block;
       padding: 2px 5px;
     }
   }
+}
+ul,ol, h1, h2,h3,h4{
+  margin-bottom: 10px;
+}
+li{
+  padding-bottom: 10px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
