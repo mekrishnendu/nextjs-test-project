@@ -27,17 +27,9 @@ export default async function Dashboard() {
       {console.log('studets1***', studets)}
 
       <h3>Students List</h3>
-      <ol>
-        {studets.data.length > 0 &&
-          studets.data.map((data) => (
-            <li key={data.id}>
-              Name: {data.name} {data.surname} <br /> Email:{data.email}
-            </li>
-          ))}
-      </ol>
       <Suspense fallback={<Loading />}>
         <ol>
-          {studets.length > 0 &&
+          {studets.data.length > 0 &&
             studets.data.map((data) => (
               <li key={data.id}>
                 Name: {data.name} {data.surname} <br /> Email:{data.email}
