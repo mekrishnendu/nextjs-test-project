@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.15",
+    "bcryptjs": "^2.4.3",
     "mongoose": "^8.1.0",
     "next": "14.0.4",
     "next-auth": "^4.24.5",

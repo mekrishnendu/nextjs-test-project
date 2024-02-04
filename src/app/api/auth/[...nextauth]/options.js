@@ -1,4 +1,10 @@
 import GitHubProvider from 'next-auth/providers/github';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { connectionStr } from '../../../lib/db';
+import { NextResponse } from 'next/server';
+import mooongose from 'mongoose';
+import { RegisteredUser } from '../../../lib/model/registereduser';
+import bcrypt from 'bcryptjs';
 
 export const options = {
   providers: [
@@ -18,6 +24,28 @@ export const options = {
       },
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
+    }),
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        await mooongose.connect(connectionStr);
+        try {
+          const user = await RegisteredUser.findOne({ email: credentials.email });
+          if (user) {
+            const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+            if (isPasswordCorrect) {
+              return user;
+            }
+          }
+        } catch (err) {
+          throw new Error(err);
+        }
+      },
     }),
   ],
   callbacks: {

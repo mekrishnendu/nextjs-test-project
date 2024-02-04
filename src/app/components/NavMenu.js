@@ -1,9 +1,12 @@
+'use client';
 import Link from 'next/link';
-import { getServerSession } from 'next-auth/next';
-import { options } from '../api/auth/[...nextauth]/options';
-const NavMenuBar = async () => {
-  const session = await getServerSession(options);
-  console.log('session nav===', session);
+// import { getServerSession } from 'next-auth/next';
+// import { options } from '../api/auth/[...nextauth]/options';
+import { signOut, useSession } from 'next-auth/react';
+
+const NavMenuBar = () => {
+  // const session = await getServerSession(options);
+  const { data: session } = useSession();
   return (
     <>
       <ul>
@@ -19,16 +22,27 @@ const NavMenuBar = async () => {
         <li>
           <Link href="/contactus">Contact</Link>
         </li>
+
         {session ? (
           <li>
-            <Link href="/api/auth/signout">Sign out</Link>
+            {/* <Link href="/api/auth/signout">Sign out</Link> */}
+            <button onClick={() => signOut()}>signout</button>
           </li>
         ) : (
-          <li>
-            <Link href="/api/auth/signin">Sign in</Link>
-          </li>
+          <>
+            <li>
+              <Link href="/login">Login</Link>
+            </li>
+            <li>
+              <Link href="/register">Register</Link>
+            </li>
+            {/* <li>
+              <Link href="/api/auth/signin">login with Github</Link>
+            </li> */}
+          </>
         )}
       </ul>
+      {session && <h4>Welcome {session.user?.email} </h4>}
     </>
   );
 };
