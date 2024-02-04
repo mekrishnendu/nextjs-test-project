@@ -54,9 +54,9 @@ export default function Student() {
     <div className={styles.studentWrap}>
       <h1>Students corner</h1>
       {session ? (
-        <button onClick={() => signOut('github')}>Sign Out</button>
+        <button onClick={() => signOut('github')}>Sign Out(GitHub)</button>
       ) : (
-        <button onClick={() => signIn('github')}>Sign In</button>
+        <button onClick={() => signIn('github')}>Sign In with GitHub</button>
       )}
       <br /> <br />
       {session ? (
