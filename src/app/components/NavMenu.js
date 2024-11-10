@@ -22,6 +22,7 @@ const NavMenuBar = () => {
         <li>
           <Link href="/contactus">Contact</Link>
         </li>
+        <Link href="/example">Example</Link>
 
         {session ? (
           <li>
